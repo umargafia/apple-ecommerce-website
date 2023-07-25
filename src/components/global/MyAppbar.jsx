@@ -16,8 +16,14 @@ function MyAppbar() {
           component="div"
           sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
         >
-          <Button sx={{ color: '#fff', alignItems: 'center', display: 'flex' }}>
-            <AppleIcon />
+          <Button
+            sx={{
+              color: '#fff',
+              alignItems: 'center',
+              display: 'flex',
+            }}
+          >
+            <AppleIcon sx={{ mt: -1 }} />
             Store
           </Button>
         </Typography>
