@@ -1,10 +1,10 @@
-import { Box, useTheme } from '@mui/material';
+import { Box, Card, Paper, useTheme } from '@mui/material';
 import React from 'react';
 
 function MyCard({ children, sx }) {
   const theme = useTheme();
   return (
-    <Box
+    <Paper
       sx={{
         p: 1,
         mt: 1,
@@ -13,7 +13,7 @@ function MyCard({ children, sx }) {
       }}
     >
       {children}
-    </Box>
+    </Paper>
   );
 }
 
