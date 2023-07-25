@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import MyAppbar from './components/global/MyAppbar';
 import HomePage from './screens/HomePage';
+import Footer from './components/global/Footer';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ function App() {
       <Box sx={{ backgroundColor: theme.palette.primary.white, m: 0, px: 15 }}>
         <RouterProvider router={router} />
       </Box>
+      <Footer />
     </Box>
   );
 }

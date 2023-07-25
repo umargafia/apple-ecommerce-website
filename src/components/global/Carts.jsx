@@ -1,15 +1,16 @@
 import React from 'react';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
-import { Button, Divider, Typography } from '@mui/material';
+import { Box, Button, Divider, Typography } from '@mui/material';
 
 import MyCard from './Mycard';
-import image from '../../assets/iphonex.png';
 
-function Carts() {
+function Carts({ item }) {
   return (
     <Grid container sm={2} sx={{ m: 2 }}>
       <MyCard sx={{ padding: 3 }}>
-        <img src={image} alt="iPhone x picture" style={{ width: '100%' }} />
+        <Box sx={{ height: 250, display: 'flex', alignItems: 'center' }}>
+          <img src={item.image} alt={item.name} style={{ width: '100%' }} />
+        </Box>
         <Divider sx={{ my: 2 }} />
         <Grid
           container
@@ -20,9 +21,9 @@ function Carts() {
             width: '100%',
           }}
         >
-          <Typography>Apple iPhone X</Typography>
-          <Typography fontWeight="bold">₦100,000</Typography>
-          <Button variant="outlined" fullWidth>
+          <Typography textAlign="center">{item.name}</Typography>
+          <Typography fontWeight="bold">₦{item.price}</Typography>
+          <Button variant="outlined" fullWidth sx={{ mt: 2 }}>
             Add to Cart
           </Button>
         </Grid>

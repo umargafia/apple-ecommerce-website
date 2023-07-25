@@ -2,17 +2,14 @@ import { Box } from '@mui/material';
 import React from 'react';
 
 import Carts from '../global/Carts';
+import iphoneLists from '../../constants/IphoneLists';
 
-function CardsSection(props) {
+function CardsSection() {
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-      <Carts />
-      <Carts />
-      <Carts />
-      <Carts />
-      <Carts />
-      <Carts />
-      <Carts />
+      {iphoneLists.map((item) => (
+        <Carts key={item.name} item={item} />
+      ))}
     </Box>
   );
 }
