@@ -1,15 +1,15 @@
-import { Box, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import React from 'react';
 
-export default function MyButton({ text, variant, sx }) {
+export default function MyButton({ text, variant, sx, onClick }) {
   return (
-    <Box>
-      <Button
-        variant={variant ? variant : 'contained'}
-        sx={{ pt: 1.2, color: 'white', ...sx }}
-      >
-        {text}
-      </Button>
-    </Box>
+    <Button
+      onClick={onClick}
+      fullWidth
+      variant={variant ? variant : 'contained'}
+      sx={{ pt: 1.2, color: 'white', ...sx }}
+    >
+      {text}
+    </Button>
   );
 }
