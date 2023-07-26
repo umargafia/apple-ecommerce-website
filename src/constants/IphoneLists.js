@@ -19,7 +19,8 @@ import iphone14pro from '../assets/14pro.jpg';
 import iphone14promax from '../assets/iphone14lg.jpg';
 
 class Iphone {
-  constructor(image, name, price) {
+  constructor(id, image, name, price) {
+    this.id = id;
     this.image = image;
     this.name = name;
     this.price = price;
@@ -27,24 +28,24 @@ class Iphone {
 }
 
 export default [
-  new Iphone(iphonex, 'Apple iPhone X', '100,000'),
-  new Iphone(iphonexr, 'Apple iPhone XR', '100,000'),
-  new Iphone(iphonexs, 'Apple iPhone XS', '100,000'),
-  new Iphone(iphonexsmax, 'Apple iPhone XS Max', '100,000'),
-  new Iphone(iphone11, 'Apple iPhone 11', '100,000'),
-  new Iphone(iphone11pro, 'Apple iPhone 11 Pro', '100,000'),
-  new Iphone(iphone11pro, 'Apple iPhone 11 Pro Max', '100,000'),
-  new Iphone(iphonese, 'Apple iPhone SE (2nd generation)', '100,000'),
-  new Iphone(iphone12mini, 'Apple iPhone 12 mini', '100,000'),
-  new Iphone(iphone12, 'Apple iPhone 12 ', '100,000'),
-  new Iphone(iphone12pro, 'Apple iPhone 12 Pro', '100,000'),
-  new Iphone(iphone12promax, 'Apple iPhone 12 Pro Max', '100,000'),
-  new Iphone(iphone13mini, 'Apple iPhone 13 mini', '100,000'),
-  new Iphone(iphone13, 'Apple iPhone 13', '100,000'),
-  new Iphone(iphone13pro, 'Apple iPhone 13 Pro', '100,000'),
-  new Iphone(iphone13promax, 'Apple iPhone 13 Pro Max', '100,000'),
-  new Iphone(iphoneset, 'Apple iPhone SE (3rd generation)', '100,000'),
-  new Iphone(iphone14, 'Apple iPhone 14 Plus', '100,000'),
-  new Iphone(iphone14pro, 'Apple iPhone 14 Pro', '100,000'),
-  new Iphone(iphone14promax, 'Apple iPhone 14 Pro Max', '100,000'),
+  new Iphone(1, iphonex, 'Apple iPhone X', '100,000'),
+  new Iphone(2, iphonexr, 'Apple iPhone XR', '110,000'),
+  new Iphone(3, iphonexs, 'Apple iPhone XS', '120,000'),
+  new Iphone(4, iphonexsmax, 'Apple iPhone XS Max', '135,000'),
+  new Iphone(5, iphone11, 'Apple iPhone 11', '100,000'),
+  new Iphone(6, iphone11pro, 'Apple iPhone 11 Pro', '140,000'),
+  new Iphone(7, iphone11pro, 'Apple iPhone 11 Pro Max', '150,000'),
+  new Iphone(8, iphonese, 'Apple iPhone SE (2nd generation)', '160,000'),
+  new Iphone(9, iphone12mini, 'Apple iPhone 12 mini', '175,000'),
+  new Iphone(10, iphone12, 'Apple iPhone 12 ', '183,000'),
+  new Iphone(11, iphone12pro, 'Apple iPhone 12 Pro', '190,000'),
+  new Iphone(12, iphone12promax, 'Apple iPhone 12 Pro Max', '200,000'),
+  new Iphone(13, iphone13mini, 'Apple iPhone 13 mini', '210,000'),
+  new Iphone(14, iphone13, 'Apple iPhone 13', '100,000'),
+  new Iphone(15, iphone13pro, 'Apple iPhone 13 Pro', '220,000'),
+  new Iphone(16, iphone13promax, 'Apple iPhone 13 Pro Max', '230,000'),
+  new Iphone(17, iphoneset, 'Apple iPhone SE (3rd generation)', '450,000'),
+  new Iphone(18, iphone14, 'Apple iPhone 14 Plus', '500,000'),
+  new Iphone(19, iphone14pro, 'Apple iPhone 14 Pro', '550,000'),
+  new Iphone(20, iphone14promax, 'Apple iPhone 14 Pro Max', '600,000'),
 ];

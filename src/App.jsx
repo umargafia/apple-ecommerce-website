@@ -4,11 +4,16 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import MyAppbar from './components/global/MyAppbar';
 import HomePage from './screens/HomePage';
 import Footer from './components/global/Footer';
+import ItemPage from './screens/ItemPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <HomePage />,
+  },
+  {
+    path: '/item/:id',
+    element: <ItemPage />,
   },
 ]);
 

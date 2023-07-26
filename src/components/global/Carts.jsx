@@ -1,14 +1,27 @@
 import React from 'react';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import { Box, Button, Divider, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 import MyCard from './Mycard';
 
 function Carts({ item }) {
+  const navigate = useNavigate();
+  function handleClick(item) {
+    navigate(`/item/${item.id}`);
+  }
   return (
     <Grid container sm={2} sx={{ m: 2 }}>
       <MyCard sx={{ padding: 3 }}>
-        <Box sx={{ height: 250, display: 'flex', alignItems: 'center' }}>
+        <Box
+          sx={{
+            height: 250,
+            display: 'flex',
+            alignItems: 'center',
+            cursor: 'pointer',
+          }}
+          onClick={() => handleClick(item)}
+        >
           <img src={item.image} alt={item.name} style={{ width: '100%' }} />
         </Box>
         <Divider sx={{ my: 2 }} />
