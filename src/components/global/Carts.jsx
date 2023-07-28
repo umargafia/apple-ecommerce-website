@@ -11,7 +11,7 @@ function Carts({ item }) {
     navigate(`/item/${item.id}`);
   }
   return (
-    <Grid container sm={2} sx={{ m: 2 }}>
+    <Grid container sm={5} md={2} sx={{ m: 2 }}>
       <MyCard sx={{ padding: 3 }}>
         <Box
           sx={{

@@ -11,14 +11,25 @@ import AppBar from '@mui/material/AppBar';
 import AppleIcon from '@mui/icons-material/Apple';
 import { Home } from '@mui/icons-material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import CartDrawer from '../cart/Cart';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 function MyAppbar() {
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen((pre) => !pre);
+  };
+
   function handleClick(e) {
     console.log(e);
   }
 
   return (
     <AppBar position="sticky" sx={{ mb: 4 }}>
+      <CartDrawer open={open} handleOpen={handleOpen} />
       <Toolbar sx={{ mx: 10 }}>
         <Typography
           variant="h6"
@@ -31,6 +42,9 @@ function MyAppbar() {
               alignItems: 'center',
               display: 'flex',
             }}
+            onClick={() => {
+              navigate('/');
+            }}
           >
             <AppleIcon sx={{ mt: -1 }} />
             Store
@@ -41,6 +55,9 @@ function MyAppbar() {
             size="large"
             aria-label="show 4 new mails"
             color="inherit"
+            onClick={() => {
+              navigate('/');
+            }}
           >
             <Home color="white" sx={{ color: 'white', fontSize: 35 }} />
           </IconButton>
@@ -49,6 +66,7 @@ function MyAppbar() {
             size="large"
             aria-label="show 4 new mails"
             color="inherit"
+            onClick={handleOpen}
           >
             <Badge badgeContent={4} color="error">
               <ShoppingCartIcon sx={{ color: 'white', fontSize: 35 }} />
