@@ -14,13 +14,19 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CartDrawer from '../cart/Cart';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import Profile from '../../screens/Profile';
 
 function MyAppbar() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [openProfile, setOpenProfile] = useState(false);
 
   const handleOpen = () => {
     setOpen((pre) => !pre);
+  };
+
+  const handleOpenProfile = () => {
+    setOpenProfile((pre) => !pre);
   };
 
   function handleClick(e) {
@@ -30,6 +36,10 @@ function MyAppbar() {
   return (
     <AppBar position="sticky" sx={{ mb: 4 }}>
       <CartDrawer open={open} handleOpen={handleOpen} />
+      <Profile
+        openProfile={openProfile}
+        handleOpenProfile={handleOpenProfile}
+      />
       <Toolbar sx={{ mx: 10 }}>
         <Typography
           variant="h6"
@@ -76,6 +86,7 @@ function MyAppbar() {
             size="large"
             aria-label="show 4 new mails"
             color="inherit"
+            onClick={handleOpenProfile}
           >
             <Avatar>
               <Typography sx={{ mt: 0.5, fontWeight: 'bold' }}> U</Typography>

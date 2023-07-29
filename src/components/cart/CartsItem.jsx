@@ -7,7 +7,6 @@ import IphoneLists from '../../constants/IphoneLists';
 
 function CartsItem() {
   const theme = useTheme();
-  console.log(IphoneLists[0]);
 
   return (
     <Grid container sx={{ ml: 2, maxWidth: '100%' }}>

@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from './screens/HomePage';
 import Footer from './components/global/Footer';
 import ItemPage from './screens/ItemPage';
+import AuthPage from './screens/AuthPage';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: '/item/:id',
     element: <ItemPage />,
+  },
+  {
+    path: '/auth',
+    element: <AuthPage />,
   },
 ]);
 

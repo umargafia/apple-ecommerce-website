@@ -122,7 +122,7 @@ function ItemPage() {
                 </Button>
               </Box>
             )}
-            {quantity >= 1 ? (
+            {quantity > 1 ? (
               <MyButton
                 fullWidth
                 text="Add to cart"
