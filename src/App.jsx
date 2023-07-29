@@ -5,6 +5,7 @@ import HomePage from './screens/HomePage';
 import Footer from './components/global/Footer';
 import ItemPage from './screens/ItemPage';
 import AuthPage from './screens/AuthPage';
+import OrderPage from './screens/OrderPage';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: '/auth',
     element: <AuthPage />,
+  },
+  {
+    path: '/order',
+    element: <OrderPage />,
   },
 ]);
 
