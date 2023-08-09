@@ -47,3 +47,13 @@ export const SignUpUser = async ({ data }) => {
 
   return response;
 };
+
+export const AddToCart = async ({ data, token }) => {
+  const response = await sendRequest({
+    url: `cart/create`,
+    method: `POST`,
+    data,
+    token,
+  });
+  return response;
+};

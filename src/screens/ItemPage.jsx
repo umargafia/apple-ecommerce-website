@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 import MyButton from '../components/global/MyButton';
 import IphoneList from '../constants/IphoneLists';
 import { Add, Remove } from '@mui/icons-material';
 import MyAppbar from '../components/global/MyAppbar';
+import { AddToCart } from '../store/api';
 function ItemPage() {
   const [item, setItem] = useState(null);
   const [isAddToCart, setIsAddToCart] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(1);
   const { id } = useParams();
+  const { token } = useSelector((state) => state.auth);
+  const [loading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const selectedItem = IphoneList.find((i) => i.id === parseInt(id));
@@ -49,7 +54,8 @@ function ItemPage() {
     setPrice((prevPrice) => prevPrice - parseInt(item.price));
   }
 
-  function createCart() {
+  async function createCart() {
+    setIsLoading(true);
     const data = {
       quantity,
       product: {
@@ -58,7 +64,10 @@ function ItemPage() {
       },
       totalPrice: price,
     };
-    console.log(data);
+
+    await AddToCart({ data, token });
+    setIsLoading(false);
+    navigate('/');
   }
 
   return (
@@ -137,7 +146,13 @@ function ItemPage() {
             {quantity > 1 ? (
               <MyButton
                 fullWidth
-                text="Add to cart"
+                text={
+                  loading ? (
+                    <CircularProgress size={20} sx={{ color: 'white' }} />
+                  ) : (
+                    'Add to cart'
+                  )
+                }
                 sx={{ mt: 2 }}
                 onClick={createCart}
               />
