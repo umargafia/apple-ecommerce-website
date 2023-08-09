@@ -19,6 +19,8 @@ export default function WelcomeSection() {
             justifyContent: 'start',
             display: 'flex',
             pl: 5,
+            height: { sm: '50vh' },
+            order: { sm: 1, md: 0 },
           }}
         >
           <Grid container sm={12}>

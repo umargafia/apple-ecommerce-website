@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import MyInput from '../global/MyInput';
 import MyButton from '../global/MyButton';
+import { LoginUser, SignUpUser } from '../../store/api';
+import { loginUser } from '../../store/authSlice';
 
 function Form() {
   const navigate = useNavigate();
   const [isLogin, setLogin] = useState(true);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const [loginData, setLoginData] = useState({
     email: '',
@@ -16,12 +22,14 @@ function Form() {
 
   const [SignUpData, setSignUpData] = useState({
     name: '',
+    username: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
 
   const handleLoginChange = (fieldName) => (text) => {
+    setError('');
     const value = text.target.value;
 
     setLoginData((prev) => {
@@ -33,6 +41,7 @@ function Form() {
   };
 
   const handleSignUpChange = (fieldName) => (text) => {
+    setError('');
     const value = text.target.value;
     setSignUpData((prev) => {
       return {
@@ -42,13 +51,32 @@ function Form() {
     });
   };
 
-  function handleLogin() {
-    console.log(loginData);
+  async function handleLogin() {
+    setLoading(true);
+    const response = await LoginUser({ data: loginData });
+    if (response.status !== 'success') {
+      setError(response.message);
+      setLoading(false);
+      return;
+    }
+    dispatch(loginUser(response));
+    localStorage.setItem('user', JSON.stringify(response));
+    setLoading(false);
     navigate('/');
   }
 
-  function handleSighup() {
-    console.log(SignUpData);
+  async function handleSighup() {
+    setLoading(true);
+    const response = await SignUpUser({ data: SignUpData });
+    if (response?.status !== 'success') {
+      setError(response?.message);
+      setLoading(false);
+      return;
+    }
+    dispatch(loginUser(response));
+    localStorage.setItem('user', JSON.stringify(response));
+    setLoading(false);
+    navigate('/');
   }
 
   return (
@@ -75,7 +103,16 @@ function Form() {
               onChange: handleLoginChange('password'),
             }}
           />
-          <MyButton text="Login" fullWidth onClick={handleLogin} />
+          {error && (
+            <Typography sx={{ textAlign: 'center', color: 'red' }}>
+              {error}
+            </Typography>
+          )}
+          <MyButton
+            text={loading ? 'loading...' : 'Login'}
+            fullWidth
+            onClick={handleLogin}
+          />
           <Button
             sx={{ textTransform: 'capitalize' }}
             onClick={() => setLogin(false)}
@@ -94,6 +131,14 @@ function Form() {
               onChange: handleSignUpChange('name'),
             }}
             text="Full Name"
+            type="text"
+          />
+          <MyInput
+            props={{
+              value: SignUpData.username,
+              onChange: handleSignUpChange('username'),
+            }}
+            text="Username"
             type="text"
           />
           <MyInput
@@ -120,7 +165,13 @@ function Form() {
             text="Confirm Password"
             type="password"
           />
+          {error && (
+            <Typography sx={{ textAlign: 'center', color: 'red', m: 2 }}>
+              {error}
+            </Typography>
+          )}
           <MyButton text="Create account" fullWidth onClick={handleSighup} />
+
           <Button
             sx={{ textTransform: 'capitalize' }}
             onClick={() => setLogin(true)}

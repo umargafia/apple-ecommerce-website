@@ -49,6 +49,18 @@ function ItemPage() {
     setPrice((prevPrice) => prevPrice - parseInt(item.price));
   }
 
+  function createCart() {
+    const data = {
+      quantity,
+      product: {
+        id: item.id,
+        price: item.price,
+      },
+      totalPrice: price,
+    };
+    console.log(data);
+  }
+
   return (
     <>
       <MyAppbar />
@@ -127,7 +139,7 @@ function ItemPage() {
                 fullWidth
                 text="Add to cart"
                 sx={{ mt: 2 }}
-                // onClick={handleAddToCart}
+                onClick={createCart}
               />
             ) : (
               <MyButton fullWidth text="Buy Now" sx={{ mt: 2 }} />
