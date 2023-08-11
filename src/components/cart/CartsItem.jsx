@@ -30,13 +30,16 @@ function CartsItem({ item }) {
   };
 
   return (
-    <Grid container sx={{ ml: 2, maxWidth: '100%' }}>
+    <Grid container sx={{ ml: 2, maxWidth: '100%', display: 'flex' }}>
       <Grid
         container
-        sx={{ mr: 'auto', width: '95%', cursor: 'pointer' }}
-        onClick={handleNavigate}
+        sx={{
+          mr: 'auto',
+          mr: 'auto',
+        }}
+        xs={12}
       >
-        <Grid xs={3}>
+        <Grid xs={3} sx={{ cursor: 'pointer' }} onClick={handleNavigate}>
           <img
             src={curItem.image}
             alt={curItem.name}

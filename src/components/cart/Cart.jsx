@@ -52,8 +52,11 @@ const CartDrawer = ({ handleOpen, open }) => {
           <Divider sx={{ my: 1 }} />
         </Grid>
         <Grid xs={12} sx={{ height: '78vh', overflowY: 'auto' }}>
-          {cartsList?.length < 0 ? (
-            <Typography variant="body1" sx={{ p: 2, color: 'primary.main' }}>
+          {cartsList?.length === 0 ? (
+            <Typography
+              variant="body1"
+              sx={{ p: 2, color: 'primary.main', textAlign: 'center' }}
+            >
               Your cart is empty.
             </Typography>
           ) : (
