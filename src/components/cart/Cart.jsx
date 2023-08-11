@@ -1,13 +1,32 @@
-import React, { useState } from 'react';
-import { Divider, IconButton, Typography } from '@mui/material';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Box, Divider, IconButton, Typography } from '@mui/material';
 import Drawer from '@mui/material/SwipeableDrawer';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ClearIcon from '@mui/icons-material/Clear';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
+
 import CartsItem from './CartsItem';
 import MyButton from '../global/MyButton';
+import { getCarts } from '../../store/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { setNoOfCarts } from '../../store/authSlice';
 const CartDrawer = ({ handleOpen, open }) => {
   const [noOfItems, setNoOfItems] = useState(4);
+  const { token } = useSelector((state) => state.auth);
+  const [cartsList, setCarts] = useState([]);
+  const dispatch = useDispatch();
+
+  const fetchCarts = async () => {
+    const response = await getCarts({ token });
+    setCarts(response?.data?.carts.reverse());
+    setNoOfItems(response?.data?.carts.length);
+    dispatch(setNoOfCarts(response?.data?.carts.length));
+  };
+
+  useEffect(() => {
+    fetchCarts();
+  }, [token]);
+
   return (
     <Drawer
       anchor={'right'}
@@ -33,14 +52,17 @@ const CartDrawer = ({ handleOpen, open }) => {
           <Divider sx={{ my: 1 }} />
         </Grid>
         <Grid xs={12} sx={{ height: '78vh', overflowY: 'auto' }}>
-          <CartsItem />
-          <CartsItem />
-          <CartsItem />
-          <CartsItem />
-          <CartsItem />
-          <CartsItem />
-          <CartsItem />
-          <CartsItem />
+          {cartsList?.length < 0 ? (
+            <Typography variant="body1" sx={{ p: 2, color: 'primary.main' }}>
+              Your cart is empty.
+            </Typography>
+          ) : (
+            <Box>
+              {cartsList.map((item) => (
+                <CartsItem item={item} key={item._id} />
+              ))}
+            </Box>
+          )}
         </Grid>
         <Grid
           xs={12}

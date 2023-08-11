@@ -15,11 +15,13 @@ import CartDrawer from '../cart/Cart';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Profile from '../../screens/Profile';
+import { useSelector } from 'react-redux';
 
 function MyAppbar() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
+  const { noOfCarts } = useSelector((state) => state.auth);
 
   const handleOpen = () => {
     setOpen((pre) => !pre);
@@ -78,7 +80,7 @@ function MyAppbar() {
             color="inherit"
             onClick={handleOpen}
           >
-            <Badge badgeContent={4} color="error">
+            <Badge badgeContent={noOfCarts} color="error">
               <ShoppingCartIcon sx={{ color: 'white', fontSize: 35 }} />
             </Badge>
           </IconButton>

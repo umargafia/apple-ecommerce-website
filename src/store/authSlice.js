@@ -6,6 +6,7 @@ const initialState = {
   isAuthenticated: user ? true : false,
   token: user ? JSON.parse(user).token : '',
   user: user ? JSON.parse(user) : null,
+  noOfCarts: 0,
 };
 
 const authSlice = createSlice({
@@ -22,8 +23,12 @@ const authSlice = createSlice({
       state.user = null;
       state.token = '';
     },
+    setNoOfCarts: (state, action) => {
+      state.noOfCarts = action.payload;
+    },
   },
 });
 
-export const { loginUser, logout, setError, saveFavorites } = authSlice.actions;
+export const { loginUser, logout, setError, saveFavorites, setNoOfCarts } =
+  authSlice.actions;
 export default authSlice.reducer;

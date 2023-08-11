@@ -1,50 +1,74 @@
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Divider, IconButton, Typography, useTheme } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
+import { useNavigate } from 'react-router-dom';
 
 import IphoneLists from '../../constants/IphoneLists';
 
-function CartsItem() {
+function CartsItem({ item }) {
   const theme = useTheme();
+  const [curItem, setItem] = useState('');
+  const navigate = useNavigate();
+
+  const id = item.product * 1;
+
+  useEffect(() => {
+    const selectedItem = IphoneLists.find((i) => i.id === parseInt(id));
+    setItem(selectedItem);
+  }, [id]);
+
+  const handleNavigate = () => {
+    navigate(`/item/${id}`);
+  };
 
   return (
     <Grid container sx={{ ml: 2, maxWidth: '100%' }}>
-      <Grid xs={3}>
-        <img
-          src={IphoneLists[0].image}
-          alt={IphoneLists[0].name}
-          style={{ width: '100px', height: '100px' }}
-        />
-      </Grid>
       <Grid
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          mr: 'auto',
-        }}
+        container
+        sx={{ mr: 'auto', width: '100%', cursor: 'pointer' }}
+        onClick={handleNavigate}
       >
-        <Typography
+        <Grid xs={3}>
+          <img
+            src={curItem.image}
+            alt={curItem.name}
+            style={{ width: '100px', height: '100px' }}
+          />
+        </Grid>
+        <Grid
           sx={{
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            maxWidth: '100%',
-            fontsize: '16px',
-            color: theme.palette.primary.main,
-            fontWeight: 'bold',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            mr: 'auto',
           }}
         >
-          {IphoneLists[19]?.name}
-        </Typography>
-        <Typography color="gray">₦200 * 1 Items</Typography>
-        <Typography sx={{ fontWeight: 'bold' }}>₦200</Typography>
-      </Grid>
-      <Grid>
-        <IconButton>
-          <ClearIcon />
-        </IconButton>
+          <Typography
+            sx={{
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              maxWidth: '100%',
+              fontsize: '16px',
+              color: theme.palette.primary.main,
+              fontWeight: 'bold',
+            }}
+          >
+            {curItem?.name}
+          </Typography>
+          <Typography color="gray">
+            ₦{curItem.price} * {item?.quantity} Items
+          </Typography>
+          <Typography sx={{ fontWeight: 'bold' }}>
+            ₦{item?.totalPrice}
+          </Typography>
+        </Grid>
+        <Grid>
+          <IconButton>
+            <ClearIcon />
+          </IconButton>
+        </Grid>
       </Grid>
       <Divider sx={{ width: '100%', my: 1 }} />
     </Grid>
