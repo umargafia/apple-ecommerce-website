@@ -11,8 +11,10 @@ export const sendRequest = async ({ url, data, method, token }) => {
       body: JSON.stringify(data),
     });
 
-    const newData = await response.json();
-    return newData;
+    if (response) {
+      const newData = await response.json();
+      return newData;
+    }
   } catch (error) {
     console.log(error);
     return error;
@@ -63,5 +65,18 @@ export const getCarts = async ({ token }) => {
     url: `cart`,
     token,
   });
+  return response;
+};
+
+export const removeCarts = async ({ token, cartID }) => {
+  const response = await sendRequest({
+    url: `cart/remove`,
+    token,
+    method: `DELETE`,
+    data: {
+      cartID,
+    },
+  });
+  console.log(response);
   return response;
 };

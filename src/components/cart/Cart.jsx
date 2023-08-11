@@ -25,7 +25,7 @@ const CartDrawer = ({ handleOpen, open }) => {
 
   useEffect(() => {
     fetchCarts();
-  }, [token]);
+  }, [token, cartsList]);
 
   return (
     <Drawer

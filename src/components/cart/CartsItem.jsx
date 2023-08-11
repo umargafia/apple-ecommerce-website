@@ -3,13 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { Divider, IconButton, Typography, useTheme } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import IphoneLists from '../../constants/IphoneLists';
+import { removeCarts } from '../../store/api';
 
 function CartsItem({ item }) {
   const theme = useTheme();
   const [curItem, setItem] = useState('');
   const navigate = useNavigate();
+  const { token } = useSelector((state) => state.auth);
 
   const id = item.product * 1;
 
@@ -22,11 +25,15 @@ function CartsItem({ item }) {
     navigate(`/item/${id}`);
   };
 
+  const handleRemove = async () => {
+    await removeCarts({ token, cartID: item._id });
+  };
+
   return (
     <Grid container sx={{ ml: 2, maxWidth: '100%' }}>
       <Grid
         container
-        sx={{ mr: 'auto', width: '100%', cursor: 'pointer' }}
+        sx={{ mr: 'auto', width: '95%', cursor: 'pointer' }}
         onClick={handleNavigate}
       >
         <Grid xs={3}>
@@ -42,6 +49,7 @@ function CartsItem({ item }) {
             flexDirection: 'column',
             justifyContent: 'center',
             mr: 'auto',
+            ml: 2,
           }}
         >
           <Typography
@@ -65,7 +73,7 @@ function CartsItem({ item }) {
           </Typography>
         </Grid>
         <Grid>
-          <IconButton>
+          <IconButton onClick={handleRemove}>
             <ClearIcon />
           </IconButton>
         </Grid>
@@ -76,28 +84,3 @@ function CartsItem({ item }) {
 }
 
 export default CartsItem;
-
-function CustomButton({ text, onClick }) {
-  const theme = useTheme();
-
-  return (
-    <button
-      onClick={onClick}
-      style={{
-        background: theme.palette.primary.pureWhite,
-        boxShadow: 'none',
-        border: `2px solid ${theme.palette.primary.main}`,
-        borderRadius: '50%',
-        padding: '5px',
-        display: 'block',
-        marginTop: '10px',
-        width: 40,
-        fontWeight: 'bold',
-        height: 40,
-        cursor: 'pointer',
-      }}
-    >
-      {text}
-    </button>
-  );
-}
