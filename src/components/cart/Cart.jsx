@@ -26,7 +26,7 @@ const CartDrawer = ({ handleOpen, open }) => {
 
   useEffect(() => {
     fetchCarts();
-  }, [noOfCarts]);
+  }, [noOfCarts, token]);
 
   return (
     <Drawer
@@ -63,7 +63,7 @@ const CartDrawer = ({ handleOpen, open }) => {
           ) : (
             <Box>
               {cartsList?.map((item) => (
-                <CartsItem item={item} key={item._id} />
+                <CartsItem item={item} key={item._id} fetchCarts={fetchCarts} />
               ))}
             </Box>
           )}

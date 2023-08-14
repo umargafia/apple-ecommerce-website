@@ -12,7 +12,7 @@ import { AddToCart } from '../store/api';
 function ItemPage() {
   const [item, setItem] = useState(null);
   const [isAddToCart, setIsAddToCart] = useState(false);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(0);
   const [price, setPrice] = useState(1);
   const { id } = useParams();
   const { token } = useSelector((state) => state.auth);
@@ -143,7 +143,7 @@ function ItemPage() {
                 </Button>
               </Box>
             )}
-            {quantity > 1 ? (
+            {quantity >= 1 ? (
               <MyButton
                 fullWidth
                 text={

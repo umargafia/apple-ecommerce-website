@@ -1,6 +1,12 @@
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import React, { useEffect, useState } from 'react';
-import { Divider, IconButton, Typography, useTheme } from '@mui/material';
+import {
+  CircularProgress,
+  Divider,
+  IconButton,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -8,11 +14,12 @@ import { useSelector } from 'react-redux';
 import IphoneLists from '../../constants/IphoneLists';
 import { removeCarts } from '../../store/api';
 
-function CartsItem({ item }) {
+function CartsItem({ item, fetchCarts }) {
   const theme = useTheme();
   const [curItem, setItem] = useState('');
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState(false);
 
   const id = item.product * 1;
 
@@ -26,7 +33,10 @@ function CartsItem({ item }) {
   };
 
   const handleRemove = async () => {
+    setLoading(true);
     await removeCarts({ token, cartID: item._id });
+    fetchCarts();
+    setLoading(false);
   };
 
   return (
@@ -77,7 +87,11 @@ function CartsItem({ item }) {
         </Grid>
         <Grid>
           <IconButton onClick={handleRemove}>
-            <ClearIcon />
+            {loading ? (
+              <CircularProgress size={20} sx={{ color: 'primary' }} />
+            ) : (
+              <ClearIcon />
+            )}
           </IconButton>
         </Grid>
       </Grid>
