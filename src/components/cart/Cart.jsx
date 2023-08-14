@@ -12,9 +12,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setNoOfCarts } from '../../store/authSlice';
 
 const CartDrawer = ({ handleOpen, open }) => {
-  const [noOfItems, setNoOfItems] = useState(4);
+  const [noOfItems, setNoOfItems] = useState(0);
   const { token, noOfCarts } = useSelector((state) => state.auth);
   const [cartsList, setCarts] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
   const dispatch = useDispatch();
 
   const fetchCarts = async () => {
@@ -24,9 +25,18 @@ const CartDrawer = ({ handleOpen, open }) => {
     dispatch(setNoOfCarts(response?.data?.carts.length));
   };
 
+  const getTotalPrice = () => {
+    let totalPrice = 0;
+    cartsList.forEach((item) => {
+      totalPrice += parseInt(item.totalPrice);
+    });
+    return totalPrice;
+  };
+
   useEffect(() => {
     fetchCarts();
-  }, [noOfCarts, token]);
+    setTotalPrice(getTotalPrice());
+  }, [noOfCarts, token, cartsList]);
 
   return (
     <Drawer
@@ -76,7 +86,10 @@ const CartDrawer = ({ handleOpen, open }) => {
             mt: 2,
           }}
         >
-          <MyButton text="Checkout now (₦2000)" sx={{ width: '90%' }} />
+          <MyButton
+            text={`Checkout now (₦${totalPrice})`}
+            sx={{ width: '90%' }}
+          />
         </Grid>
       </Grid>
     </Drawer>

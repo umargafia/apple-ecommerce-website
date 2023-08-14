@@ -21,7 +21,7 @@ function MyAppbar() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
-  const { noOfCarts } = useSelector((state) => state.auth);
+  const { noOfCarts, user } = useSelector((state) => state.auth);
 
   const handleOpen = () => {
     setOpen((pre) => !pre);
@@ -91,7 +91,11 @@ function MyAppbar() {
             onClick={handleOpenProfile}
           >
             <Avatar>
-              <Typography sx={{ mt: 0.5, fontWeight: 'bold' }}> U</Typography>
+              <Typography
+                sx={{ mt: 0.5, fontWeight: 'bold', textTransform: 'uppercase' }}
+              >
+                {user.name.charAt(0)}
+              </Typography>
             </Avatar>
           </IconButton>
         </Box>
