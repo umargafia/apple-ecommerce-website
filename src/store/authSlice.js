@@ -5,7 +5,7 @@ const user = localStorage.getItem('user');
 const initialState = {
   isAuthenticated: user ? true : false,
   token: user ? JSON.parse(user).token : '',
-  user: user ? JSON.parse(user) : null,
+  user: user ? JSON.parse(user).data : null,
   noOfCarts: 0,
 };
 

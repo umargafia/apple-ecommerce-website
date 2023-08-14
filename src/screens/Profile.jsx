@@ -1,10 +1,22 @@
 import { Box, Divider, Drawer, Typography, useTheme } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+
 import MyButton from '../components/global/MyButton';
+import { logout } from '../store/authSlice';
 
 export default function Profile({ openProfile, handleOpenProfile }) {
   const theme = useTheme();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+
+  const handleLogOut = () => {
+    dispatch(logout());
+    localStorage.clear();
+  };
+
   return (
     <Drawer anchor={'right'} open={openProfile} onClose={handleOpenProfile}>
       <Grid
@@ -37,7 +49,7 @@ export default function Profile({ openProfile, handleOpenProfile }) {
             }}
           >
             <Typography variant="h3" color="white">
-              U
+              {user?.name.charAt(0)}
             </Typography>
           </Box>
           <Box>
@@ -50,18 +62,18 @@ export default function Profile({ openProfile, handleOpenProfile }) {
                 textAlign: 'center',
               }}
             >
-              Umar Faruk Musa
+              {user?.name}
             </Typography>
             <Typography
               sx={{ fontWeight: 'bold', textAlign: 'center', color: 'gray' }}
             >
-              umagafia@gmail.com
+              {user?.email}
             </Typography>
           </Box>
         </Grid>
         <Grid xs={12} sx={{ mt: -30 }}>
           <Divider />
-          <MyButton text="Logout" sx={{ mt: 1 }} />
+          <MyButton text="Logout" sx={{ mt: 1 }} onClick={handleLogOut} />
         </Grid>
       </Grid>
     </Drawer>

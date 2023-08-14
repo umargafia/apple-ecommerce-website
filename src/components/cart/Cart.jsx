@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Divider, IconButton, Typography } from '@mui/material';
 import Drawer from '@mui/material/SwipeableDrawer';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -10,9 +10,10 @@ import MyButton from '../global/MyButton';
 import { getCarts } from '../../store/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNoOfCarts } from '../../store/authSlice';
+
 const CartDrawer = ({ handleOpen, open }) => {
   const [noOfItems, setNoOfItems] = useState(4);
-  const { token } = useSelector((state) => state.auth);
+  const { token, noOfCarts } = useSelector((state) => state.auth);
   const [cartsList, setCarts] = useState([]);
   const dispatch = useDispatch();
 
@@ -25,7 +26,7 @@ const CartDrawer = ({ handleOpen, open }) => {
 
   useEffect(() => {
     fetchCarts();
-  }, [token, cartsList]);
+  }, [noOfCarts]);
 
   return (
     <Drawer
@@ -61,7 +62,7 @@ const CartDrawer = ({ handleOpen, open }) => {
             </Typography>
           ) : (
             <Box>
-              {cartsList.map((item) => (
+              {cartsList?.map((item) => (
                 <CartsItem item={item} key={item._id} />
               ))}
             </Box>

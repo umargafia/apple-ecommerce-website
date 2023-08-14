@@ -36,8 +36,13 @@ function Carts({ item }) {
         >
           <Typography textAlign="center">{item.name}</Typography>
           <Typography fontWeight="bold">₦{item.price}</Typography>
-          <Button variant="outlined" fullWidth sx={{ mt: 2 }}>
-            Add to Cart
+          <Button
+            variant="outlined"
+            fullWidth
+            sx={{ mt: 2 }}
+            onClick={() => handleClick(item)}
+          >
+            View item details
           </Button>
         </Grid>
       </MyCard>
