@@ -4,39 +4,55 @@ import Drawer from '@mui/material/SwipeableDrawer';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ClearIcon from '@mui/icons-material/Clear';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CartsItem from './CartsItem';
 import MyButton from '../global/MyButton';
 import { getCarts } from '../../store/api';
-import { useDispatch, useSelector } from 'react-redux';
 import { setNoOfCarts } from '../../store/authSlice';
 
 const CartDrawer = ({ handleOpen, open }) => {
-  const [noOfItems, setNoOfItems] = useState(0);
   const { token, noOfCarts } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [cartsList, setCarts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const dispatch = useDispatch();
+  const [noOfItems, setNoOfItems] = useState(0);
 
   const fetchCarts = async () => {
-    const response = await getCarts({ token });
-    setCarts(response?.data?.carts.reverse());
-    setNoOfItems(response?.data?.carts.length);
-    dispatch(setNoOfCarts(response?.data?.carts.length));
-  };
+    try {
+      const response = await getCarts({ token });
+      const fetchedCarts = response?.data?.carts.reverse();
 
-  const getTotalPrice = () => {
-    let totalPrice = 0;
-    cartsList.forEach((item) => {
-      totalPrice += parseInt(item.totalPrice);
-    });
-    return totalPrice;
+      const total = fetchedCarts.reduce((acc, item) => {
+        return acc + parseInt(item.totalPrice);
+      }, 0);
+
+      setCarts(fetchedCarts);
+      setNoOfItems(fetchedCarts.length);
+      setTotalPrice(total);
+      dispatch(setNoOfCarts(fetchedCarts.length));
+    } catch (error) {
+      // Handle error here
+    }
   };
 
   useEffect(() => {
     fetchCarts();
-    setTotalPrice(getTotalPrice());
-  }, [noOfCarts, token, cartsList]);
+  }, [noOfCarts, token]);
+
+  const handleClick = () => {
+    navigate('/order', {
+      state: {
+        cartInfo: {
+          noOfItems,
+          totalPrice,
+        },
+      },
+    });
+  };
 
   return (
     <Drawer
@@ -89,6 +105,7 @@ const CartDrawer = ({ handleOpen, open }) => {
           <MyButton
             text={`Checkout now (₦${totalPrice})`}
             sx={{ width: '90%' }}
+            onClick={handleClick}
           />
         </Grid>
       </Grid>
