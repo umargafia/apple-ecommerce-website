@@ -80,3 +80,33 @@ export const removeCarts = async ({ token, cartID }) => {
   console.log(response);
   return response;
 };
+
+export const getAddress = async ({ token }) => {
+  const response = await sendRequest({
+    url: `users/getAddress`,
+    token,
+  });
+
+  return response;
+};
+
+export const updateAddress = async ({ token, addressData }) => {
+  const response = await sendRequest({
+    url: `users/updateAddress`,
+    token,
+    method: `PATCH`,
+    data: addressData,
+  });
+
+  return response;
+};
+
+export const createAddress = async ({ token, addressData }) => {
+  const response = await sendRequest({
+    url: `users/createAddress`,
+    token,
+    method: `POST`,
+    data: addressData,
+  });
+  return response;
+};
