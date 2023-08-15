@@ -6,7 +6,10 @@ import iphoneLists from '../../constants/IphoneLists';
 
 function CardsSection() {
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+    <Box
+      sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}
+      id="items-section"
+    >
       {iphoneLists.map((item) => (
         <Carts key={item.name} item={item} />
       ))}

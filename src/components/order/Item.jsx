@@ -12,7 +12,7 @@ function Item() {
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
-    setTotalPrice(parseInt(cartInfo.totalPrice + 1000 + 6400));
+    setTotalPrice(parseInt(cartInfo.totalPrice + 1000 + 400));
   });
 
   return (
@@ -20,7 +20,7 @@ function Item() {
       <InfoItemFW title="Number of Items" text={cartInfo.noOfItems} normal />
       <InfoItemFW title="Subtotal" text={cartInfo.totalPrice} />
       <InfoItemFW title="Shipping" text="1000" />
-      <InfoItemFW title="Tax" text="6400" />
+      <InfoItemFW title="Tax" text="400" />
       <InfoItemFW title="Discount" text="000" />
       <Box sx={{ mt: '40%' }}>
         <Typography sx={{ textAlign: 'right', fontSize: 30 }}>

@@ -1,6 +1,6 @@
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import React, { useEffect, useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 import MyInput from '../global/MyInput';
@@ -12,6 +12,7 @@ function Address() {
   const [isEdit, setEdit] = useState(false);
   const { token } = useSelector((state) => state.auth);
   const [address, setAddress] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const [addressData, setAddressData] = useState({
     country: '',
@@ -22,6 +23,7 @@ function Address() {
   });
 
   const handleSave = async () => {
+    setLoading(true);
     try {
       if (!address._id) {
         await createAddress({ token, addressData });
@@ -30,10 +32,14 @@ function Address() {
       }
 
       setEdit(false);
-    } catch (error) {}
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   const handleGetAddress = async () => {
+    setLoading(true);
     try {
       const response = await getAddress({ token });
       setAddress(response.data);
@@ -48,7 +54,10 @@ function Address() {
         street: data.street || '',
         zipCode: data.zipCode || '',
       });
-    } catch (error) {}
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -105,7 +114,16 @@ function Address() {
             }}
             text="Zip Code"
           />
-          <MyButton text="Save" onClick={handleSave} />
+          <MyButton
+            text={
+              loading ? (
+                <CircularProgress size={20} sx={{ color: 'white' }} />
+              ) : (
+                'Save'
+              )
+            }
+            onClick={handleSave}
+          />
         </>
       ) : (
         <Box>
@@ -127,7 +145,7 @@ function Address() {
             text={addressData.localGov || 'N/A'}
           />
           <InfoItem title="Street" text={addressData.street || 'N/A'} />
-          <MyButton text="Edit Address" onClick={() => setEdit(true)} />
+          <MyButton text="Edit" onClick={() => setEdit(true)} />
         </Box>
       )}
     </Grid>

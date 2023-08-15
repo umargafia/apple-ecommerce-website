@@ -1,12 +1,14 @@
 import { Box, Typography, useTheme } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import image from '../../assets/iphone14lg.jpg';
 import MyButton from '../global/MyButton';
 import MyCard from '../global/Mycard';
 
 export default function WelcomeSection() {
+  const navigate = useNavigate();
   return (
     <MyCard>
       <Grid container>
@@ -36,7 +38,10 @@ export default function WelcomeSection() {
             </Grid>
             <Typography>30% OFF ON ALL ORDERS </Typography>
             <Grid sm={12} sx={{ mt: 1 }}>
-              <MyButton text="Shop Now" />
+              <MyButton
+                text="Shop Now"
+                onClick={() => navigate('#items-section')}
+              />
             </Grid>
           </Grid>
         </Grid>

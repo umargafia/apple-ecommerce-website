@@ -70,6 +70,16 @@ function ItemPage() {
     navigate('/');
   }
 
+  const handleBuyNow = () => {
+    navigate('/order', {
+      state: {
+        cartInfo: {
+          noOfItems: 1,
+          totalPrice: parseInt(item.price),
+        },
+      },
+    });
+  };
   return (
     <>
       <MyAppbar />
@@ -157,7 +167,12 @@ function ItemPage() {
                 onClick={createCart}
               />
             ) : (
-              <MyButton fullWidth text="Buy Now" sx={{ mt: 2 }} />
+              <MyButton
+                fullWidth
+                text="Buy Now"
+                sx={{ mt: 2 }}
+                onClick={handleBuyNow}
+              />
             )}
           </Box>
         </Grid>
