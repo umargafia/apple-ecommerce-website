@@ -114,11 +114,29 @@ export const deleteAddressFunction = async ({ token, addressId }) => {
 };
 
 export const createCard = async ({ data, token }) => {
+  console.log(data);
   const response = await sendRequest({
     url: `users/cards/`,
     method: `POST`,
     data,
     token,
+  });
+  return response;
+};
+
+export const getCards = async ({ token }) => {
+  const response = await sendRequest({
+    url: `users/cards/`,
+    token,
+  });
+  return response;
+};
+
+export const deleteCard = async ({ token, cardID }) => {
+  const response = await sendRequest({
+    url: `users/cards/${cardID}`,
+    token,
+    method: `DELETE`,
   });
   return response;
 };

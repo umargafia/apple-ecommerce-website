@@ -53,6 +53,7 @@ function Address() {
   }, [isEdit]);
 
   const handleAddressChange = (fieldName) => (event) => {
+    setError('');
     const { value } = event.target;
     setAddressData((prev) => ({
       ...prev,
@@ -97,6 +98,7 @@ function Address() {
       setEdit(false);
       setLoading(false);
     } catch (error) {
+      setError('something went wrong');
       setLoading(false);
     }
   };
