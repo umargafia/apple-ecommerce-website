@@ -45,7 +45,6 @@ function CartsItem({ item, fetchCarts }) {
         container
         sx={{
           mr: 'auto',
-          mr: 'auto',
         }}
         xs={12}
       >

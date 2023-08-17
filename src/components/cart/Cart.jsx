@@ -34,9 +34,7 @@ const CartDrawer = ({ handleOpen, open }) => {
       setNoOfItems(fetchedCarts.length);
       setTotalPrice(total);
       dispatch(setNoOfCarts(fetchedCarts.length));
-    } catch (error) {
-      // Handle error here
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {

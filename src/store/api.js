@@ -101,12 +101,24 @@ export const updateAddress = async ({ token, addressData }) => {
   return response;
 };
 
-export const createAddress = async ({ token, addressData }) => {
-  const response = await sendRequest({
-    url: `users/createAddress`,
+export const deleteAddressFunction = async ({ token, addressId }) => {
+  console.log({ token, addressId });
+  await sendRequest({
+    url: `users/deleteAddress`,
     token,
+    method: `DELETE`,
+    data: {
+      addressId,
+    },
+  });
+};
+
+export const createCard = async ({ data, token }) => {
+  const response = await sendRequest({
+    url: `users/cards/`,
     method: `POST`,
-    data: addressData,
+    data,
+    token,
   });
   return response;
 };

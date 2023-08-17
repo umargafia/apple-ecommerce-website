@@ -1,20 +1,25 @@
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import React, { useEffect, useState } from 'react';
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 import MyInput from '../global/MyInput';
 import MyButton from '../global/MyButton';
 import InfoItem from './InfoItem';
-import { createAddress, getAddress, updateAddress } from '../../store/api';
+import {
+  getAddress,
+  updateAddress,
+  deleteAddressFunction,
+} from '../../store/api';
 
 function Address() {
   const [isEdit, setEdit] = useState(false);
   const { token } = useSelector((state) => state.auth);
-  const [address, setAddress] = useState({});
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const [addressData, setAddressData] = useState({
+    id: '',
     country: '',
     state: '',
     localGov: '',
@@ -22,32 +27,15 @@ function Address() {
     zipCode: '',
   });
 
-  const handleSave = async () => {
-    setLoading(true);
-    try {
-      if (!address._id) {
-        await createAddress({ token, addressData });
-      } else {
-        await updateAddress({ token, addressData });
-      }
-
-      setEdit(false);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-    }
-  };
-
   const handleGetAddress = async () => {
     setLoading(true);
     try {
       const response = await getAddress({ token });
-      setAddress(response.data);
 
       const data = response.data[0];
-      console.log(data);
 
       setAddressData({
+        id: data._id,
         country: data.country || '',
         state: data.state || '',
         localGov: data.localGov || '',
@@ -62,8 +50,7 @@ function Address() {
 
   useEffect(() => {
     handleGetAddress();
-    console.log(addressData);
-  }, []);
+  }, [isEdit]);
 
   const handleAddressChange = (fieldName) => (event) => {
     const { value } = event.target;
@@ -73,6 +60,46 @@ function Address() {
     }));
   };
 
+  const handleRemove = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      await deleteAddressFunction({ token, addressId: addressData.id });
+      setAddressData({
+        id: '',
+        country: '',
+        state: '',
+        localGov: '',
+        street: '',
+        zipCode: '',
+      });
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
+  const handleSave = async () => {
+    setError('');
+    if (
+      addressData.country.trim().length === 0 ||
+      addressData.localGov.trim().length === 0 ||
+      addressData.state.trim().length === 0 ||
+      addressData.street.trim().length === 0 ||
+      addressData.zipCode.trim().length === 0
+    ) {
+      setError('All fields are required');
+      return;
+    }
+    setLoading(true);
+    try {
+      await updateAddress({ token, addressData });
+      setEdit(false);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
   return (
     <Grid container sx={{ background: 'white', p: 2 }}>
       {isEdit ? (
@@ -114,16 +141,38 @@ function Address() {
             }}
             text="Zip Code"
           />
-          <MyButton
-            text={
-              loading ? (
-                <CircularProgress size={20} sx={{ color: 'white' }} />
-              ) : (
-                'Save'
-              )
-            }
-            onClick={handleSave}
-          />
+          <Box sx={{ width: '100%' }}>
+            {error && (
+              <Typography sx={{ color: '#d32f2f', textAlign: 'center' }}>
+                {error}
+              </Typography>
+            )}
+
+            {loading ? (
+              <Button variant="contained" disabled fullWidth>
+                <CircularProgress sx={{ color: 'primary.main' }} size={20} />
+              </Button>
+            ) : (
+              <Box sx={{ display: 'flex' }}>
+                <MyButton
+                  fullWidth
+                  text={'save'}
+                  onClick={handleSave}
+                  sx={{ mr: 2 }}
+                />
+                {addressData.id && (
+                  <Button
+                    fullWidth
+                    onClick={handleRemove}
+                    color="error"
+                    variant="contained"
+                  >
+                    Remove Address
+                  </Button>
+                )}
+              </Box>
+            )}
+          </Box>
         </>
       ) : (
         <Box>
