@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CartsItem from './CartsItem';
 import MyButton from '../global/MyButton';
 import { getCarts } from '../../store/api';
-import { setNoOfCarts } from '../../store/authSlice';
+import { setCartsReducer, setNoOfCarts } from '../../store/authSlice';
 
 const CartDrawer = ({ handleOpen, open }) => {
   const { token, noOfCarts } = useSelector((state) => state.auth);
@@ -31,6 +31,7 @@ const CartDrawer = ({ handleOpen, open }) => {
       }, 0);
 
       setCarts(fetchedCarts);
+      dispatch(setCartsReducer(fetchedCarts));
       setNoOfItems(fetchedCarts.length);
       setTotalPrice(total);
       dispatch(setNoOfCarts(fetchedCarts.length));

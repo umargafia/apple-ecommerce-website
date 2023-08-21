@@ -7,6 +7,7 @@ const initialState = {
   token: user ? JSON.parse(user).token : '',
   user: user ? JSON.parse(user).data : null,
   noOfCarts: 0,
+  carts: [],
 };
 
 const authSlice = createSlice({
@@ -26,9 +27,18 @@ const authSlice = createSlice({
     setNoOfCarts: (state, action) => {
       state.noOfCarts = action.payload;
     },
+    setCartsReducer: (state, action) => {
+      state.carts = action.payload;
+    },
   },
 });
 
-export const { loginUser, logout, setError, saveFavorites, setNoOfCarts } =
-  authSlice.actions;
+export const {
+  loginUser,
+  logout,
+  setError,
+  saveFavorites,
+  setNoOfCarts,
+  setCartsReducer,
+} = authSlice.actions;
 export default authSlice.reducer;

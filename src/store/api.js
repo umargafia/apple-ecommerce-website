@@ -140,3 +140,13 @@ export const deleteCard = async ({ token, cardID }) => {
   });
   return response;
 };
+
+export const createOrder = async ({ cartId, token }) => {
+  const response = await sendRequest({
+    url: `orders/create`,
+    token,
+    method: `POST`,
+    data: { cartId },
+  });
+  return response;
+};

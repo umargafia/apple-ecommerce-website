@@ -7,6 +7,7 @@ import Footer from './components/global/Footer';
 import ItemPage from './screens/ItemPage';
 import AuthPage from './screens/AuthPage';
 import OrderPage from './screens/OrderPage';
+import ReceptPage from './screens/ReciptPage';
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -26,6 +27,10 @@ function App() {
     {
       path: '/order',
       element: <OrderPage />,
+    },
+    {
+      path: '/recept',
+      element: <ReceptPage />,
     },
   ]);
 
