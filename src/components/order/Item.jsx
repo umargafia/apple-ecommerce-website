@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import MyCard from '../global/Mycard';
 import { InfoItemFW } from './InfoItem';
 import MyButton from '../global/MyButton';
-import { createOrder } from '../../store/api';
+import { AddToCart, createOrder } from '../../store/api';
 
 function Item() {
   const location = useLocation();
@@ -22,13 +22,34 @@ function Item() {
 
   const handlePayment = async () => {
     setLoading(true);
+
+    if (cartInfo?.now === true) {
+      const data = {
+        quantity: 1,
+        product: {
+          id: cartInfo.id,
+          Price: cartInfo.totalPrice,
+        },
+        totalPrice: cartInfo.totalPrice,
+        now: true,
+      };
+      const createCart = await AddToCart({ token, data });
+      const newOrder = await createOrder({
+        token,
+        cartId: createCart?.data?._id,
+      });
+
+      navigate('/recept');
+      setLoading(false);
+      return;
+    }
+
     // loop through the carts id and create a order
     let response;
     for (const cart of carts) {
       response = await createOrder({ token, cartId: cart._id });
     }
 
-    // navigate to recipe page
     navigate('/recept');
     setLoading(false);
     return;

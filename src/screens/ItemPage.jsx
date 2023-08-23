@@ -76,6 +76,8 @@ function ItemPage() {
         cartInfo: {
           noOfItems: 1,
           totalPrice: parseInt(item.price),
+          now: true,
+          id: item.id,
         },
       },
     });

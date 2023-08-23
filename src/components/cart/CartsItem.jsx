@@ -50,8 +50,8 @@ function CartsItem({ item, fetchCarts }) {
       >
         <Grid xs={3} sx={{ cursor: 'pointer' }} onClick={handleNavigate}>
           <img
-            src={curItem.image}
-            alt={curItem.name}
+            src={curItem?.image}
+            alt={curItem?.name}
             style={{ width: '100px', height: '100px' }}
           />
         </Grid>
@@ -78,7 +78,7 @@ function CartsItem({ item, fetchCarts }) {
             {curItem?.name}
           </Typography>
           <Typography color="gray">
-            ₦{curItem.price} * {item?.quantity} Items
+            ₦{curItem?.price} * {item?.quantity} Items
           </Typography>
           <Typography sx={{ fontWeight: 'bold' }}>
             ₦{item?.totalPrice}
