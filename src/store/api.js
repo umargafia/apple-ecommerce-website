@@ -150,3 +150,11 @@ export const createOrder = async ({ cartId, token }) => {
   });
   return response;
 };
+
+export const getOrders = async ({ token }) => {
+  const response = await sendRequest({
+    url: `orders/getOrders`,
+    token,
+  });
+  return response;
+};
