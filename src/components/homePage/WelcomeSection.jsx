@@ -38,10 +38,7 @@ export default function WelcomeSection() {
             </Grid>
             <Typography>30% OFF ON ALL ORDERS </Typography>
             <Grid sm={12} sx={{ mt: 1 }}>
-              <MyButton
-                text="Shop Now"
-                onClick={() => navigate('#items-section')}
-              />
+              <MyButton text="Shop Now" onClick={() => navigate('#items')} />
             </Grid>
           </Grid>
         </Grid>

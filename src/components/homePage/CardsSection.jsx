@@ -8,7 +8,7 @@ function CardsSection() {
   return (
     <Box
       sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}
-      id="items-section"
+      id="items"
     >
       {iphoneLists.map((item) => (
         <Carts key={item.name} item={item} />

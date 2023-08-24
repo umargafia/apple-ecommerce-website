@@ -28,7 +28,7 @@ class Iphone {
 }
 
 export default [
-  new Iphone(1, iphonex, 'Apple iPhone X', '100000'),
+  new Iphone(100, iphonex, 'Apple iPhone X', '100000'),
   new Iphone(2, iphonexr, 'Apple iPhone XR', '110000'),
   new Iphone(3, iphonexs, 'Apple iPhone XS', '120000'),
   new Iphone(4, iphonexsmax, 'Apple iPhone XS Max', '135000'),

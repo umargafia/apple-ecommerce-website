@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Profile from '../../screens/Profile';
 import { useSelector } from 'react-redux';
-
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 function MyAppbar() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -83,6 +83,19 @@ function MyAppbar() {
             <Badge badgeContent={noOfCarts} color="error">
               <ShoppingCartIcon sx={{ color: 'white', fontSize: 35 }} />
             </Badge>
+          </IconButton>
+          <IconButton
+            size="large"
+            aria-label="show 4 new mails"
+            color="inherit"
+            onClick={() => {
+              navigate('/recept');
+            }}
+          >
+            <LocalShippingIcon
+              color="white"
+              sx={{ color: 'white', fontSize: 35 }}
+            />
           </IconButton>
           <IconButton
             size="large"
