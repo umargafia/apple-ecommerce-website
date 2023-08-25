@@ -59,30 +59,38 @@ function OrderItem(props) {
             <Typography>N124,245</Typography>
           </Grid>
         </Grid>
-        <Grid xs={12} sx={{ m: 1 }}>
-          <FormControl fullWidth sx={{ mb: 2, mt: 2 }} variant="standard">
-            <InputLabel id="demo-simple-select-label">status</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={status}
-              label="Status"
-              onChange={handleChange}
-            >
-              <MenuItem value={10}>pending</MenuItem>
-              <MenuItem value={20}>processing</MenuItem>
-              <MenuItem value={30}>shipped</MenuItem>
-              <MenuItem value={40}>delivered</MenuItem>
-            </Select>
-          </FormControl>
-
+        <Grid xs={12} sx={{ m: 1, mt: 3 }}>
           <Button variant="outlined" fullWidth onClick={handleExpandClick}>
-            {expanded ? 'Hide Address' : 'Show address'}
+            {expanded ? 'Hide' : 'Show more'}
           </Button>
         </Grid>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>Additional content when expanded.</Typography>
+            <Typography variant="h4" fontWeight="bold" color="primary">
+              Address
+            </Typography>
+            <Typography paragraph>Country: Nigeria</Typography>
+            <Typography paragraph>State: Katsina</Typography>
+            <Typography paragraph>Local government: Katsina</Typography>
+            <Typography paragraph>street: Gidan dawa</Typography>
+            <Typography paragraph>Zip code: 12456</Typography>
+            <FormControl fullWidth sx={{ mb: 2, mt: 2 }} variant="standard">
+              <InputLabel id="demo-simple-select-label">
+                Order Status
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={status}
+                label="Status"
+                onChange={handleChange}
+              >
+                <MenuItem value={10}>pending</MenuItem>
+                <MenuItem value={20}>processing</MenuItem>
+                <MenuItem value={30}>shipped</MenuItem>
+                <MenuItem value={40}>delivered</MenuItem>
+              </Select>
+            </FormControl>
           </CardContent>
         </Collapse>
       </Grid>
