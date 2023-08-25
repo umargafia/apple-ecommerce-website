@@ -1,5 +1,5 @@
 import { AdminPanelSettings } from '@mui/icons-material';
-import { AppBar, Toolbar, Typography, useTheme } from '@mui/material';
+import { AppBar, Button, Toolbar, Typography, useTheme } from '@mui/material';
 import React from 'react';
 
 function AdminAppBar(props) {
@@ -7,10 +7,16 @@ function AdminAppBar(props) {
   return (
     <AppBar position="sticky">
       <Toolbar>
-        <AdminPanelSettings sx={{ color: 'white', fontSize: 40 }} />
-        <Typography color="white" variant="h4">
+        <Button
+          sx={{
+            color: '#fff',
+            alignItems: 'center',
+            display: 'flex',
+          }}
+        >
+          <AdminPanelSettings sx={{ color: 'white' }} />
           Admin
-        </Typography>
+        </Button>
       </Toolbar>
     </AppBar>
   );

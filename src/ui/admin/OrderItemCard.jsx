@@ -8,15 +8,14 @@ export default function OrderItemCard() {
   return (
     <MyCard
       sx={{
-        maxHeight: '80vh',
-        minHeight: '80vh',
+        height: '96vh',
         margin: 1,
         backgroundColor: 'primary.main',
         overflow: 'auto',
         p: 1,
       }}
     >
-      <Typography variant="h4" color="white">
+      <Typography variant="h6" color="white">
         All orders
       </Typography>
       <Divider sx={{ backgroundColor: 'white' }} />

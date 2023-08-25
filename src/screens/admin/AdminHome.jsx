@@ -4,6 +4,8 @@ import React from 'react';
 import AdminAppBar from '../../ui/admin/AppBar';
 import MyCard from '../../components/global/Mycard';
 import OrderItemCard from '../../ui/admin/OrderItemCard';
+import ProfileSection from '../../ui/admin/ProfileSection';
+import Users from '../../ui/admin/Users';
 
 function AdminHome() {
   return (
@@ -21,8 +23,15 @@ function AdminHome() {
       <Grid xs={6}>
         <OrderItemCard />
       </Grid>
-      <Grid xs={5.5}>
-        <MyCard></MyCard>
+      <Grid xs={6}>
+        <MyCard sx={{ height: '45%', bgcolor: 'primary.main' }}>
+          <ProfileSection />
+        </MyCard>
+        <MyCard
+          sx={{ height: '45%', bgcolor: 'primary.main', overflow: 'auto' }}
+        >
+          <Users />
+        </MyCard>
       </Grid>
     </Grid>
   );

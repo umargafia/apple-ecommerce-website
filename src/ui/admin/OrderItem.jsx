@@ -14,7 +14,6 @@ import React, { useState } from 'react';
 
 import MyCard from '../../components/global/Mycard';
 import image from '../../assets/12.jpg';
-import MyButton from '../../components/global/MyButton';
 
 function OrderItem(props) {
   const [expanded, setExpanded] = useState(false);
