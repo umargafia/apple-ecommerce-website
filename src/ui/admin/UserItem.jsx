@@ -10,7 +10,14 @@ function UserItem() {
         <Option header="Name" title="Umar faruk musa" />
         <Option header="Email" title="umargafia@gmail.com" />
         <Option header="Role" title="Admin" />
-        <Button sx={{ bgcolor: 'error.main', color: 'white' }} fullWidth>
+        <Button
+          sx={{
+            bgcolor: 'error.main',
+            color: 'white',
+            '&:hover': { bgcolor: 'error.main', opacity: [0.9, 0.8, 0.7] },
+          }}
+          fullWidth
+        >
           Remove user
         </Button>
       </Card>

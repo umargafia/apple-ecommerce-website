@@ -1,14 +1,19 @@
 import { Avatar, Button, Divider, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-function ProfileSection(props) {
+function ProfileSection() {
+  const { user } = useSelector((state) => state.auth);
+
+  console.log(user);
+
   return (
     <Grid container>
       <Grid xs={12} sx={{ m: 1 }}>
         <Avatar sx={{ margin: '0 auto', p: 2 }}>
           <Typography variant="h4" textTransform="uppercase">
-            U
+            {user.name.charAt(0)}
           </Typography>
         </Avatar>
         <Typography
@@ -18,7 +23,7 @@ function ProfileSection(props) {
           textTransform="capitalize"
           variant="h4"
         >
-          Umar Faruk musa
+          {user.name}
         </Typography>
         <Typography
           textAlign="center"
@@ -26,7 +31,7 @@ function ProfileSection(props) {
           fontWeight="bold"
           letterSpacing={3}
         >
-          umargafia@gmail.com
+          {user.email}
         </Typography>
       </Grid>
       <Grid xs={12}>
@@ -52,7 +57,12 @@ function ProfileSection(props) {
         <Button
           variant="contained"
           fullWidth
-          sx={{ color: 'white', bgcolor: 'error.main', mt: 2 }}
+          sx={{
+            color: 'white',
+            bgcolor: 'error.main',
+            mt: 2,
+            '&:hover': { bgcolor: 'error.main', opacity: [0.9, 0.8, 0.7] },
+          }}
         >
           Logout
         </Button>

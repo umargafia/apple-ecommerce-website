@@ -170,7 +170,11 @@ function Form() {
               {error}
             </Typography>
           )}
-          <MyButton text="Create account" fullWidth onClick={handleSighup} />
+          <MyButton
+            text={loading ? 'loading...' : 'Create account'}
+            fullWidth
+            onClick={handleSighup}
+          />
 
           <Button
             sx={{ textTransform: 'capitalize' }}
