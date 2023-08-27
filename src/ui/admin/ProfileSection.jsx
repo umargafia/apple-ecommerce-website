@@ -6,8 +6,6 @@ import { useSelector } from 'react-redux';
 function ProfileSection() {
   const { user } = useSelector((state) => state.auth);
 
-  console.log(user);
-
   return (
     <Grid container>
       <Grid xs={12} sx={{ m: 1 }}>

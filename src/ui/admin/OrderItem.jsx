@@ -10,38 +10,77 @@ import {
   Typography,
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import MyCard from '../../components/global/Mycard';
 import image from '../../assets/12.jpg';
+import IphoneList from '../../constants/IphoneLists';
+import FormatDate from '../../constants/FormatDate';
+import { useSelector } from 'react-redux';
+import { updateOrder } from '../../store/api';
 
-function OrderItem(props) {
+function OrderItem({ item }) {
   const [expanded, setExpanded] = useState(false);
   const [status, setStatus] = useState('');
+  const [iphone, setIphone] = useState(null);
+  const { token } = useSelector((state) => state.auth);
 
-  const handleChange = (event) => {
+  useEffect(() => {
+    const curIphone = IphoneList.find(
+      (i) => i.id === parseInt(item.cart.product)
+    );
+    setIphone(curIphone);
+
+    const statusMap = {
+      pending: 10,
+      processing: 20,
+      shipped: 30,
+      delivered: 40,
+    };
+    setStatus(statusMap[item.status]);
+  }, [item, IphoneList]);
+
+  const handleChange = async (event) => {
     const value = event.target.value;
     setStatus(value);
-    console.log(value);
+
+    let newStatus;
+    if (value === 10) {
+      newStatus = 'pending';
+    } else if (value === 20) {
+      newStatus = 'processing';
+    } else if (value === 30) {
+      newStatus = 'shipped';
+    } else if (value === 40) {
+      newStatus = 'delivered';
+    }
+
+    const response = await updateOrder({
+      id: item._id,
+      status: newStatus,
+      token,
+    });
   };
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
   return (
     <MyCard>
       <Grid container sx={{ m: 1 }}>
         <Grid xs={12} container>
           <Grid xs={1} sx={{ mr: 2 }}>
             <Avatar sx={{ p: 1 }}>
-              <Typography variant="h5">U</Typography>
+              <Typography variant="h5">{item?.user?.name.charAt(0)}</Typography>
             </Avatar>
           </Grid>
           <Grid sx={{ ml: 2 }}>
             <Typography fontWeight="bold" textTransform="capitalize">
-              Umar faruk musa
+              {item?.user?.name}
             </Typography>
             <Typography color="gray" fontSize={15}>
-              umargafia@gmail.com
+              {item?.user?.email}
             </Typography>
           </Grid>
         </Grid>
@@ -51,11 +90,13 @@ function OrderItem(props) {
           </Grid>
           <Grid sx={{ mt: 1, ml: 2 }}>
             <Typography variant="h5" fontWeight="bold" color="primary">
-              iPhone 14 pro max
+              {iphone?.name}
             </Typography>
-            <Typography>2, Items</Typography>
-            <Typography color="gray">Ordered on 12 Aug,2023</Typography>
-            <Typography>N124,245</Typography>
+            <Typography>{item?.cart?.quantity}, Items</Typography>
+            <Typography color="gray">
+              Ordered on {FormatDate(item.createdAt)}
+            </Typography>
+            <Typography>N{item.cart.totalPrice}</Typography>
           </Grid>
         </Grid>
         <Grid xs={12} sx={{ m: 1, mt: 3 }}>
@@ -68,11 +109,13 @@ function OrderItem(props) {
             <Typography variant="h4" fontWeight="bold" color="primary">
               Address
             </Typography>
-            <Typography paragraph>Country: Nigeria</Typography>
-            <Typography paragraph>State: Katsina</Typography>
-            <Typography paragraph>Local government: Katsina</Typography>
-            <Typography paragraph>street: Gidan dawa</Typography>
-            <Typography paragraph>Zip code: 12456</Typography>
+            <Typography paragraph>Country: {item.address.country}</Typography>
+            <Typography paragraph>State: {item.address.state}</Typography>
+            <Typography paragraph>
+              Local government: {item.address.localGov}
+            </Typography>
+            <Typography paragraph>street: {item.address.street}</Typography>
+            <Typography paragraph>Zip code: {item.address.zipCode} </Typography>
             <FormControl fullWidth sx={{ mb: 2, mt: 2 }} variant="standard">
               <InputLabel id="demo-simple-select-label">
                 Order Status

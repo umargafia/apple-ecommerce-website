@@ -158,3 +158,20 @@ export const getOrders = async ({ token }) => {
   });
   return response;
 };
+
+export const getAllOrders = async ({ token }) => {
+  const response = await sendRequest({
+    url: `orders/getAllOrders`,
+    token,
+  });
+  return response;
+};
+
+export const updateOrder = async ({ id, status, token }) => {
+  const response = await sendRequest({
+    url: `orders/updateOrder/${id}/${status}`,
+    token,
+    method: `PATCH`,
+  });
+  return response;
+};
