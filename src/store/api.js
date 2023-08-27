@@ -60,6 +60,14 @@ export const AddToCart = async ({ data, token }) => {
   return response;
 };
 
+export const getAllUsers = async ({ token }) => {
+  const response = await sendRequest({
+    url: `users`,
+    token,
+  });
+  return response;
+};
+
 export const getCarts = async ({ token }) => {
   const response = await sendRequest({
     url: `cart`,

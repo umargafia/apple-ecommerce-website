@@ -3,13 +3,14 @@ import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import { Button, Card, Typography } from '@mui/material';
 import Row from '../../components/global/Row';
 
-function UserItem() {
+function UserItem({ item }) {
   return (
     <Grid sx={{ m: 2 }}>
       <Card sx={{ p: 1 }}>
-        <Option header="Name" title="Umar faruk musa" />
-        <Option header="Email" title="umargafia@gmail.com" />
-        <Option header="Role" title="Admin" />
+        <Option header="Name" title={item?.name} />
+        <Option header="Email" title={item?.email} />
+        <Option header="Username" title={item?.username} />
+        <Option header="Role" title={item?.role} />
         <Button
           sx={{
             bgcolor: 'error.main',

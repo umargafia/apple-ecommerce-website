@@ -1,4 +1,4 @@
-import { Box, Divider, Typography } from '@mui/material';
+import { Box, CircularProgress, Divider, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
 import MyCard from '../../components/global/Mycard';
@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 export default function OrderItemCard() {
   const [orders, setOrders] = useState([]);
   const { token } = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     handleGetOrder();
@@ -16,8 +17,10 @@ export default function OrderItemCard() {
 
   //get all orders
   const handleGetOrder = async () => {
+    setLoading(true);
     const response = await getAllOrders({ token });
     setOrders(response?.data);
+    setLoading(false);
   };
 
   return (
@@ -34,9 +37,22 @@ export default function OrderItemCard() {
         All orders
       </Typography>
       <Divider sx={{ backgroundColor: 'white' }} />
-      {orders.map((item) => {
-        return <OrderItem item={item} key={item._id} />;
-      })}
+      {loading ? (
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+          }}
+        >
+          <CircularProgress size={40} sx={{ color: 'white' }} />
+        </Box>
+      ) : (
+        orders?.map((item) => {
+          return <OrderItem item={item} key={item._id} />;
+        })
+      )}
     </MyCard>
   );
 }

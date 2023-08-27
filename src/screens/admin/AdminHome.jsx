@@ -20,7 +20,7 @@ function AdminHome() {
       <Grid xs={12}>
         <AdminAppBar />
       </Grid>
-      <Grid xs={6} sx={{ maxHeight: '130vh' }}>
+      <Grid xs={6} sx={{ height: '130vh' }}>
         <OrderItemCard />
       </Grid>
       <Grid xs={6}>

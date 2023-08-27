@@ -106,16 +106,28 @@ function OrderItem({ item }) {
         </Grid>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography variant="h4" fontWeight="bold" color="primary">
-              Address
-            </Typography>
-            <Typography paragraph>Country: {item.address.country}</Typography>
-            <Typography paragraph>State: {item.address.state}</Typography>
-            <Typography paragraph>
-              Local government: {item.address.localGov}
-            </Typography>
-            <Typography paragraph>street: {item.address.street}</Typography>
-            <Typography paragraph>Zip code: {item.address.zipCode} </Typography>
+            {item?.address ? (
+              <>
+                <Typography variant="h4" fontWeight="bold" color="primary">
+                  Address
+                </Typography>
+                <Typography paragraph>
+                  Country: {item.address.country}
+                </Typography>
+                <Typography paragraph>State: {item.address.state}</Typography>
+                <Typography paragraph>
+                  Local government: {item.address.localGov}
+                </Typography>
+                <Typography paragraph>street: {item.address.street}</Typography>
+                <Typography paragraph>
+                  Zip code: {item.address.zipCode}{' '}
+                </Typography>
+              </>
+            ) : (
+              <CardContent>
+                <Typography paragraph>No Address</Typography>
+              </CardContent>
+            )}
             <FormControl fullWidth sx={{ mb: 2, mt: 2 }} variant="standard">
               <InputLabel id="demo-simple-select-label">
                 Order Status
@@ -134,6 +146,7 @@ function OrderItem({ item }) {
               </Select>
             </FormControl>
           </CardContent>
+          )
         </Collapse>
       </Grid>
     </MyCard>
