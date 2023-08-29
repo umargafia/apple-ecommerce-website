@@ -1,9 +1,18 @@
 import React from 'react';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import { Button, Card, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
+
 import Row from '../../components/global/Row';
+import { removeUser } from '../../store/api';
 
 function UserItem({ item }) {
+  console.log(item);
+  const { token } = useSelector((state) => state.auth);
+  const handleRemoveUser = async () => {
+    const response = await removeUser({ token, id: item._id });
+    console.log(response);
+  };
   return (
     <Grid sx={{ m: 2 }}>
       <Card sx={{ p: 1 }}>
@@ -12,6 +21,7 @@ function UserItem({ item }) {
         <Option header="Username" title={item?.username} />
         <Option header="Role" title={item?.role} />
         <Button
+          onClick={handleRemoveUser}
           sx={{
             bgcolor: 'error.main',
             color: 'white',

@@ -50,6 +50,15 @@ export const SignUpUser = async ({ data }) => {
   return response;
 };
 
+export const removeUser = async ({ token, id }) => {
+  const response = await sendRequest({
+    url: `users/${id}`,
+    token,
+    method: `DELETE`,
+  });
+  return response;
+};
+
 export const AddToCart = async ({ data, token }) => {
   const response = await sendRequest({
     url: `cart/create`,

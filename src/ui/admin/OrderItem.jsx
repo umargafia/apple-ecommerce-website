@@ -146,7 +146,6 @@ function OrderItem({ item }) {
               </Select>
             </FormControl>
           </CardContent>
-          )
         </Collapse>
       </Grid>
     </MyCard>
