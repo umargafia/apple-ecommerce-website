@@ -2,11 +2,13 @@ import { Box, Typography, useTheme } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import * as Scroll from 'react-scroll';
 
 import image from '../../assets/iphone14lg.jpg';
 import MyButton from '../global/MyButton';
 import MyCard from '../global/Mycard';
 
+const Link = Scroll.Link;
 export default function WelcomeSection() {
   const navigate = useNavigate();
   return (
@@ -38,7 +40,15 @@ export default function WelcomeSection() {
             </Grid>
             <Typography>30% OFF ON ALL ORDERS </Typography>
             <Grid sm={12} sx={{ mt: 1 }}>
-              <MyButton text="Shop Now" onClick={() => navigate('#items')} />
+              <Link
+                activeClass="active"
+                to="iphones"
+                spy={true}
+                smooth={true}
+                duration={500}
+              >
+                <MyButton text="Shop Now" />
+              </Link>
             </Grid>
           </Grid>
         </Grid>
