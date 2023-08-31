@@ -7,15 +7,19 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import MyInput from '../global/MyInput';
 import MyButton from '../global/MyButton';
 import { createUser } from '../../store/api';
+import { toggleModel } from '../../store/authSlice';
 
 function AddUserForm() {
   const [state, setState] = useState('');
   const { token } = useSelector((state) => state.auth);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const [userData, setUserData] = useState({
     name: '',
     username: '',
@@ -46,6 +50,8 @@ function AddUserForm() {
   };
 
   const handleAddUserUpChange = (fieldName) => (text) => {
+    setError('');
+
     const value = text.target.value;
     setUserData((prev) => {
       return {
@@ -56,8 +62,35 @@ function AddUserForm() {
   };
 
   const handleAddUser = async () => {
+    if (
+      userData.name.trim().length === 0 ||
+      userData.username.trim().length === 0 ||
+      userData.email.trim().length === 0 ||
+      userData.password.trim().length === 0 ||
+      userData.passwordConfirm.trim().length === 0
+    ) {
+      setError('All fields are required');
+      return;
+    }
+
+    if (userData.password !== userData.passwordConfirm) {
+      setError('Passwords do not match');
+      return;
+    }
+    setLoading(true);
+
     const response = await createUser({ data: userData, token });
     console.log(response);
+
+    if (response.status === 'fail') {
+      setError(response.message);
+    }
+
+    if (response.status === 'success') {
+      dispatch(toggleModel());
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -119,7 +152,17 @@ function AddUserForm() {
           <MenuItem value={20}>Admin</MenuItem>
         </Select>
       </FormControl>
-      <MyButton text="Add User" fullWidth onClick={handleAddUser} />
+      {error && (
+        <Typography sx={{ color: 'error.main', textAlign: 'center' }}>
+          {error}
+        </Typography>
+      )}
+      <MyButton
+        text={loading ? 'Loading...' : 'Add user'}
+        disabled={loading}
+        fullWidth
+        onClick={handleAddUser}
+      />
     </Box>
   );
 }

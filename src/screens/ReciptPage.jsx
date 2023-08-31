@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -8,6 +8,8 @@ import Mycard from '../components/global/Mycard';
 import ReceiptItem from '../components/recipt/ReciptItem';
 import { getOrders } from '../store/api';
 import IphoneLists from '../constants/IphoneLists';
+import Billing from '../components/order/Billing';
+import Address from '../components/order/Address';
 
 export default function ReceptPage() {
   const { token } = useSelector((state) => state.auth);
@@ -87,18 +89,10 @@ export default function ReceptPage() {
         <Mycard sx={{ mb: 2, p: 2 }}>
           <Grid container>
             <Grid sm={6} sx={{ borderRight: '1px solid gray' }}>
-              <Typography variant="h4">Payments</Typography>
-              <Button variant="contained" sx={{ mt: 2, color: 'white' }}>
-                visa1**********23
-              </Button>
+              <Billing />
             </Grid>
             <Grid sm={6} sx={{ pl: 2 }}>
-              <Typography variant="h4">Delivery</Typography>
-              <Typography>Nigeria</Typography>
-              <Typography>Katsina</Typography>
-              <Typography>Katsina</Typography>
-              <Typography>Gidan dawa</Typography>
-              <Typography>12345 </Typography>
+              <Address />
             </Grid>
           </Grid>
         </Mycard>
