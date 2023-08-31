@@ -7,6 +7,7 @@ const initialState = {
   token: user ? JSON.parse(user).token : '',
   user: user ? JSON.parse(user).data : null,
   noOfCarts: 0,
+  model: false,
   carts: [],
 };
 
@@ -30,6 +31,9 @@ const authSlice = createSlice({
     setCartsReducer: (state, action) => {
       state.carts = action.payload;
     },
+    toggleModel: (state, action) => {
+      state.model = !state.model;
+    },
   },
 });
 
@@ -40,5 +44,6 @@ export const {
   saveFavorites,
   setNoOfCarts,
   setCartsReducer,
+  toggleModel,
 } = authSlice.actions;
 export default authSlice.reducer;

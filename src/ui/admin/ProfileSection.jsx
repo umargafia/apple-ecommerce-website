@@ -1,13 +1,25 @@
 import { Avatar, Button, Divider, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import MyModel from '../../components/global/MyModel';
+import { toggleModel } from '../../store/authSlice';
+import AddUserForm from '../../components/admin/Form';
 
 function ProfileSection() {
   const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const handleCreateUser = async () => {
+    dispatch(toggleModel());
+  };
 
   return (
     <Grid container>
+      <MyModel>
+        <AddUserForm />
+      </MyModel>
       <Grid xs={12} sx={{ m: 1 }}>
         <Avatar sx={{ margin: '0 auto', p: 2 }}>
           <Typography variant="h4" textTransform="uppercase">
@@ -32,23 +44,19 @@ function ProfileSection() {
           {user.email}
         </Typography>
       </Grid>
-      <Grid xs={12}>
-        <Divider />
-        <Button
-          variant="contained"
-          fullWidth
-          sx={{ color: 'primary.main', bgcolor: 'white', mt: 2 }}
-        >
-          change password
-        </Button>
-      </Grid>
+
       <Grid xs={12}>
         <Button
           variant="contained"
           fullWidth
-          sx={{ color: 'primary.main', bgcolor: 'white', mt: 2 }}
+          onClick={handleCreateUser}
+          sx={{
+            bgcolor: 'white',
+            color: 'primary.main',
+            '&:hover': { opacity: [0.9, 0.8, 0.7], color: 'white' },
+          }}
         >
-          Update user info
+          Add user
         </Button>
       </Grid>
       <Grid xs={12}>

@@ -50,6 +50,15 @@ export const SignUpUser = async ({ data }) => {
   return response;
 };
 
+export const createUser = async ({ data, token }) => {
+  const response = await sendRequest({
+    url: `users/signup`,
+    method: `POST`,
+    token,
+    data,
+  });
+  return response;
+};
 export const removeUser = async ({ token, id }) => {
   const response = await sendRequest({
     url: `users/${id}`,
