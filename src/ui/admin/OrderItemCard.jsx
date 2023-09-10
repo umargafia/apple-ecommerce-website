@@ -19,6 +19,7 @@ export default function OrderItemCard() {
   const handleGetOrder = async () => {
     setLoading(true);
     const response = await getAllOrders({ token });
+    
     setOrders(response?.data);
     setLoading(false);
   };

@@ -46,13 +46,24 @@ function App() {
     },
   ]);
 
+  const adminRoutes = createBrowserRouter([
+    {
+      path: '/',
+      element: <AdminHome />,
+    },
+  ]);
+
   const theme = useTheme();
   return (
     <Box
       sx={{ backgroundColor: theme.palette.primary.white, minHeight: '100vh' }}
     >
       <Box sx={{ backgroundColor: theme.palette.primary.white, m: 0, px: 15 }}>
-        <RouterProvider router={user ? router : isNotAuth} />
+        <RouterProvider
+          router={
+            user ? (user?.role === 'admin' ? adminRoutes : router) : isNotAuth
+          }
+        />
       </Box>
       <Footer />
     </Box>
